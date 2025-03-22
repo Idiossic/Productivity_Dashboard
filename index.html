@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Productivity Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>✨ Daily Productivity Dashboard ✨</h1>
+        
+        <!-- To-Do List -->
+        <div class="todo-container">
+            <h2>📝 To-Do List</h2>
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button onclick="addTask()">Add Task</button>
+            <ul id="taskList"></ul>
+        </div>
+
+        <!-- Daily Win Journal -->
+        <div class="journal-container">
+            <h2>🏆 Daily Win</h2>
+            <textarea id="dailyWin" placeholder="What was your biggest win today?"></textarea>
+            <button onclick="saveWin()">Save</button>
+        </div>
+
+        <!-- Quote of the Day -->
+        <div class="quote-container">
+            <h2>📜 Quote of the Day</h2>
+            <p id="quote">Loading...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
