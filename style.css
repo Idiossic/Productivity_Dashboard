@@ -1,191 +1,149 @@
-/* ---------------- IMPORT FANTASY FONT ---------------- */
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
-
-/* ---------------- GLOBAL STYLES ---------------- */
+/* General Styling */
 body {
-    font-family: 'Jost', sans-serif;
-    background: radial-gradient(circle, #0A0A0A 40%, #1E0033 100%);
-    color: #FFD700;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2e;
+    color: white;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* ---------------- BACKGROUND EFFECTS ---------------- */
-body::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/axiom-pattern.png'); 
-    mix-blend-mode: overlay;
-    opacity: 0.2;
-    pointer-events: none;
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    gap: 20px;
 }
 
-/* ---------------- HEADER ---------------- */
-h1 {
-    font-size: 3rem;
-    text-transform: uppercase;
-    font-weight: 900;
-    color: #FFD700;
-    text-shadow: 
-        -3px -3px 0px #5600F0, 
-        3px 3px 0px #FF0044, 
-        0px 0px 15px rgba(255, 0, 0, 0.8);
-    letter-spacing: 2px;
-    padding-top: 20px;
-    position: relative;
-    animation: flicker 2s infinite alternate;
+/* Left Side (Tasks, Journal, Quote) */
+.left-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* ---------------- TASK INPUT ---------------- */
-#taskInput {
-    width: 70%;
-    max-width: 450px;
-    padding: 12px;
-    font-size: 1.2rem;
-    border: 3px solid #FFD700;
+/* Right Side (Progress Chart) */
+.right-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Styling */
+.todo-container, .journal-container, .quote-container {
+    background-color: #282a36;
+    padding: 20px;
     border-radius: 12px;
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.todo-container:hover, 
+.journal-container:hover, 
+.quote-container:hover {
+    transform: scale(1.02);
+}
+
+/* Headers */
+h1, h2 {
     text-align: center;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-    box-shadow: inset 0px 0px 10px rgba(255, 215, 0, 0.5);
-}
-
-#taskInput:focus {
-    border-color: #FF0044;
-    box-shadow: 0px 0px 15px #FF0044;
-    animation: glowBorder 1s infinite alternate;
-}
-
-/* ---------------- ADD TASK BUTTON ---------------- */
-#addTaskBtn {
-    background: linear-gradient(145deg, #5600F0, #FFD700);
-    color: black;
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 12px 30px;
+}
+
+/* Input and Textarea Styling */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
     border: none;
+    border-radius: 8px;
+    background-color: #44475a;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Button Styling */
+button {
+    margin-top: 10px;
+    padding: 12px;
+    width: 100%;
+    background-color: #ff79c6;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 50px;
-    box-shadow: 0px 0px 15px #FFD700;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
+    font-size: 1rem;
+    transition: background 0.2s;
 }
 
-#addTaskBtn:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 25px #FFD700;
+button:hover {
+    background-color: #bd93f9;
 }
 
-/* Glowing Effect */
-#addTaskBtn::before {
-    content: "";
-    position: absolute;
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, transparent 70%);
-    top: -20%;
-    left: -20%;
-    opacity: 0.5;
-    transform: scale(0);
-    transition: transform 0.5s ease-out;
-}
-
-#addTaskBtn:hover::before {
-    transform: scale(1.5);
-}
-
-/* ---------------- TASK LIST ---------------- */
+/* To-Do List */
 ul {
     list-style: none;
     padding: 0;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 500px;
 }
 
 li {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.8), rgba(0, 0, 255, 0.8));
-    padding: 15px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: white;
-    margin: 12px 0;
-    border-radius: 10px;
+    background-color: #44475a;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease-in-out;
-    text-shadow: 2px 2px 3px black;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    transition: background 0.2s;
+}
+
+li.completed {
+    text-decoration: line-through;
+    background-color: #50fa7b;
+    color: black;
+}
+
+/* Progress Chart Styling */
+.progress-container {
     position: relative;
-    overflow: hidden;
-    animation: slideIn 0.5s ease-out;
+    width: 300px;
+    height: 300px;
 }
 
-li:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+.progress-ring {
+    transform: rotate(-90deg);
 }
 
-/* ---------------- REMOVE TASK BUTTON ---------------- */
-button.remove-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #FFD700;
-    transition: transform 0.3s, text-shadow 0.3s;
+.progress-ring__background {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 12;
 }
 
-button.remove-btn:hover {
-    color: #FF0044;
-    text-shadow: 0px 0px 10px #FF0044;
-    transform: scale(1.2);
+.progress-ring__progress {
+    fill: none;
+    stroke: #50fa7b;
+    stroke-width: 12;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 0.5s ease-in-out;
 }
 
-/* ---------------- DAILY WIN SECTION ---------------- */
-#dailyWin {
-    width: 80%;
-    max-width: 400px;
-    padding: 12px;
-    font-size: 1.2rem;
-    border: 2px solid #FFD700;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.8);
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
     color: white;
-    text-align: center;
-    margin-top: 20px;
-    transition: all 0.3s;
-}
-
-#dailyWin:focus {
-    border: 2px solid #FF0044;
-    box-shadow: 0 0 15px #FF0044;
-}
-
-/* ---------------- KEYFRAMES ---------------- */
-@keyframes flicker {
-    0% { opacity: 1; text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7); }
-    50% { opacity: 0.9; text-shadow: 0px 0px 20px rgba(255, 0, 0, 0.7); }
-    100% { opacity: 1; text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7); }
-}
-
-@keyframes glowBorder {
-    0% { box-shadow: 0px 0px 5px #FF0044; }
-    100% { box-shadow: 0px 0px 15px #FF0044; }
-}
-
-@keyframes slideIn {
-    0% { transform: translateY(50px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
 }
