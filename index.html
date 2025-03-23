@@ -15,7 +15,9 @@
                 <h2>📝 To-Do List</h2>
                 <input type="text" id="taskInput" placeholder="Add a new task...">
                 <button onclick="addTask()">Add Task</button>
-                <ul id="taskList"></ul>
+                <div class="task-container">
+                    <ul id="taskList"></ul>
+                </div>
             </div>
 
             <!-- Daily Win Journal -->
@@ -36,13 +38,21 @@
         <div class="right-container">
             <div class="progress-container">
                 <svg class="progress-ring" width="300" height="300">
+                    <!-- Insert the gradient definition here, right after the opening svg tag -->
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#e11d48" />
+                            <stop offset="50%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Your existing circles remain below the defs section -->
                     <circle class="progress-ring__background" cx="150" cy="150" r="100"></circle>
                     <circle class="progress-ring__progress" cx="150" cy="150" r="100"></circle>
                 </svg>
-                <div class="progress-text">0%</div>
+                <div class="progress-text" id="progressText"></div>
             </div>
         </div>
-    </div>
 
     <script src="script.js"></script>
 </body>

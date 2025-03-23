@@ -1,260 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Completion Progress Circle</title>
-    <style>
-        .progress-container {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            margin: 20px auto;
-        }
-        
-        .progress-circle {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-        }
-        
-        .task-section {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        
-        .task-form {
-            margin-bottom: 20px;
-        }
-        
-        .task-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        
-        .task-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 5px;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-        }
-        
-        .task-item.completed {
-            background-color: #e6ffe6;
-            text-decoration: line-through;
-            color: #666;
-        }
-        
-        .task-checkbox {
-            margin-right: 10px;
-        }
-        
-        .task-delete {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: #ff6666;
-            cursor: pointer;
-        }
-        
-        input[type="text"] {
-            padding: 8px;
-            width: 70%;
-            margin-right: 10px;
-        }
-        
-        button {
-            padding: 8px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <style>
+    /* The outer container with a fixed size */
+    .outer-container {
+      width: 400px;
+      height: 400px;
+      border: 2px solid #333;
+      padding: 20px;
+      background-color: #f5f5f5;
+      /* Note: No overflow property here */
+    }
+    
+    /* The inner scrollable container */
+    .inner-container {
+      width: 100%;
+      height: 300px; /* Smaller than the outer container */
+      border: 1px solid #999;
+      background-color: white;
+      padding: 15px;
+      
+      /* This is what creates the scrolling effect */
+      overflow-y: auto;
+      
+      /* Optional: make the scrollbar more noticeable */
+      scrollbar-width: thin;
+      scrollbar-color: #888 #f1f1f1;
+    }
+    
+    /* Some styling for the scrollbar in WebKit browsers */
+    .inner-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    .inner-container::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 4px;
+    }
+    .inner-container::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
-    <div class="task-section">
-        <h1>Task Progress Dashboard</h1>
-        
-        <div class="progress-container">
-            <canvas class="progress-circle" id="progressCircle" width="200" height="200"></canvas>
-            <div class="progress-text" id="progressText">0%</div>
-        </div>
-        
-        <div class="task-form">
-            <input type="text" id="newTask" placeholder="Add a new task...">
-            <button id="addTaskBtn">Add Task</button>
-        </div>
-        
-        <ul class="task-list" id="taskList">
-            <!-- Tasks will be added here by JavaScript -->
-        </ul>
+  <h2>Nested Scrollable Container Example</h2>
+  
+  <div class="outer-container">
+    <h3>Outer Container (Fixed Height)</h3>
+    <p>This content is in the outer container, outside the scrollable area.</p>
+    
+    <div class="inner-container">
+      <h4>Inner Container (Scrollable)</h4>
+      <p>This content is inside the scrollable inner container.</p>
+      <!-- Add plenty of content to ensure scrolling is needed -->
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor enim at magna bibendum, in sagittis nisi facilisis.</p>
+      <p>Nulla facilisi. Sed ut imperdiet nisi. Proin tempus lorem id nunc ultrices, et faucibus purus convallis.</p>
+      <p>Integer id justo vitae orci commodo finibus. Morbi auctor, tellus non maximus tempus.</p>
+      <p>Suspendisse potenti. Curabitur scelerisque, nisi vel placerat ullamcorper, sem urna fermentum odio.</p>
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+      <p>Fusce quis lacus eu tellus tincidunt efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices.</p>
+      <p>Maecenas eget tellus at magna finibus pulvinar. Donec vestibulum, magna at congue posuere.</p>
     </div>
-
-    <script>
-        // Task management functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM elements
-            const newTaskInput = document.getElementById('newTask');
-            const addTaskBtn = document.getElementById('addTaskBtn');
-            const taskList = document.getElementById('taskList');
-            const progressCircle = document.getElementById('progressCircle');
-            const progressText = document.getElementById('progressText');
-            
-            // Canvas context
-            const ctx = progressCircle.getContext('2d');
-            
-            // Load tasks from localStorage or initialize empty array
-            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-            
-            // Initialize
-            renderTasks();
-            updateProgressCircle();
-            
-            // Event: Add new task
-            addTaskBtn.addEventListener('click', function() {
-                addTask();
-            });
-            
-            // Event: Enter key in input
-            newTaskInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    addTask();
-                }
-            });
-            
-            // Function: Add a new task
-            function addTask() {
-                const taskText = newTaskInput.value.trim();
-                if (taskText) {
-                    const task = {
-                        id: Date.now(),
-                        text: taskText,
-                        completed: false
-                    };
-                    
-                    tasks.push(task);
-                    saveTasks();
-                    renderTasks();
-                    updateProgressCircle();
-                    newTaskInput.value = '';
-                }
-            }
-            
-            // Function: Toggle task completion
-            function toggleTask(id) {
-                tasks = tasks.map(task => {
-                    if (task.id === id) {
-                        return { ...task, completed: !task.completed };
-                    }
-                    return task;
-                });
-                
-                saveTasks();
-                renderTasks();
-                updateProgressCircle();
-            }
-            
-            // Function: Delete task
-            function deleteTask(id) {
-                tasks = tasks.filter(task => task.id !== id);
-                saveTasks();
-                renderTasks();
-                updateProgressCircle();
-            }
-            
-            // Function: Save tasks to localStorage
-            function saveTasks() {
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-            }
-            
-            // Function: Render all tasks
-            function renderTasks() {
-                taskList.innerHTML = '';
-                
-                if (tasks.length === 0) {
-                    const emptyMsg = document.createElement('li');
-                    emptyMsg.textContent = 'No tasks yet. Add one above!';
-                    taskList.appendChild(emptyMsg);
-                    return;
-                }
-                
-                tasks.forEach(task => {
-                    const li = document.createElement('li');
-                    li.className = task.completed ? 'task-item completed' : 'task-item';
-                    
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.className = 'task-checkbox';
-                    checkbox.checked = task.completed;
-                    checkbox.addEventListener('change', () => toggleTask(task.id));
-                    
-                    const span = document.createElement('span');
-                    span.textContent = task.text;
-                    
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'task-delete';
-                    deleteBtn.textContent = '×';
-                    deleteBtn.addEventListener('click', () => deleteTask(task.id));
-                    
-                    li.appendChild(checkbox);
-                    li.appendChild(span);
-                    li.appendChild(deleteBtn);
-                    taskList.appendChild(li);
-                });
-            }
-            
-            // Function: Update progress circle
-            function updateProgressCircle() {
-                // Calculate completion percentage
-                const totalTasks = tasks.length;
-                const completedTasks = tasks.filter(task => task.completed).length;
-                const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
-                
-                // Update text
-                progressText.textContent = `${percentage}%`;
-                
-                // Clear canvas
-                ctx.clearRect(0, 0, progressCircle.width, progressCircle.height);
-                
-                // Draw background circle
-                ctx.beginPath();
-                ctx.arc(100, 100, 80, 0, 2 * Math.PI);
-                ctx.strokeStyle = '#e6e6e6';
-                ctx.lineWidth = 15;
-                ctx.stroke();
-                
-                // Draw progress arc
-                if (percentage > 0) {
-                    ctx.beginPath();
-                    ctx.arc(100, 100, 80, -0.5 * Math.PI, (2 * percentage / 100 - 0.5) * Math.PI);
-                    ctx.strokeStyle = '#4CAF50';
-                    ctx.lineWidth = 15;
-                    ctx.stroke();
-                }
-            }
-        });
-    </script>
+    
+    <p>This is more content in the outer container, below the scrollable area.</p>
+  </div>
 </body>
 </html>
